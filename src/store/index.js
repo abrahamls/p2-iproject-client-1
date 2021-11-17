@@ -127,6 +127,23 @@ export default new Vuex.Store({
           });
       });
     },
+    requestParty(_, id) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/party/${id}`,
+          method: "post",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
   },
   modules: {},
 });
