@@ -87,6 +87,63 @@ export default new Vuex.Store({
           });
       });
     },
+    addRole(_, id) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: "/player",
+          method: "post",
+          data: {
+            RoleId: id,
+          },
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    updateRank(_, rank) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: "/player/rank",
+          method: "put",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+          data: {
+            rank,
+          },
+        })
+          .then(() => {
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    requestParty(_, id) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/party/${id}`,
+          method: "post",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
   },
   modules: {},
 });

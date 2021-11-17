@@ -11,19 +11,27 @@
     </div>
     <div class="d-flex justify-content-around role-container">
       <div class="role-card me-2">
-        <a href=""><img src="../assets/midlaner.png" alt="" />Midlaner</a>
+        <a href="" @click.prevent="addRole(1)"
+          ><img src="../assets/midlaner.png" alt="" />Midlaner</a
+        >
       </div>
       <div class="role-card me-2">
-        <a href=""><img src="../assets/carry.png" alt="" />Carry</a>
+        <a @click.prevent="addRole(2)" href=""
+          ><img src="../assets/carry.png" alt="" />Carry</a
+        >
       </div>
       <div class="role-card me-2">
-        <a href=""><img src="../assets/offlaner.png" alt="" />Offlaner</a>
+        <a @click.prevent="addRole(3)" href=""
+          ><img src="../assets/offlaner.png" alt="" />Offlaner</a
+        >
       </div>
       <div class="role-card me-2">
-        <a href=""><img src="../assets/support.png" alt="" />Support</a>
+        <a @click.prevent="addRole(4)" href=""
+          ><img src="../assets/support.png" alt="" />Support</a
+        >
       </div>
       <div class="role-card me-2">
-        <a href=""
+        <a @click.prevent="addRole(5)" href=""
           ><img src="../assets/hard-support.png" alt="" />Hard Support</a
         >
       </div>
@@ -32,21 +40,103 @@
       <label for="">select your rank</label>
     </div>
     <div class="d-flex justify-content-around rank-container">
-      <a href=""><img src="../assets/herald.png" alt="" /></a>
-      <a href=""><img src="../assets/guardian.png" alt="" /></a>
-      <a href=""><img src="../assets/crusader.png" alt="" /></a>
-      <a href=""><img src="../assets/archon.png" alt="" /></a>
-      <a href=""><img src="../assets/legend.png" alt="" /></a>
-      <a href=""><img src="../assets/ancient.png" alt="" /></a>
-      <a href=""><img src="../assets/divine.png" alt="" /></a>
-      <a href=""><img src="../assets/immortal.png" alt="" /></a>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('herald')" href=""
+          ><img src="../assets/herald.png" alt=""
+        /></a>
+        <p class="ms-5">Herald</p>
+      </div>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('guardian')" href=""
+          ><img src="../assets/guardian.png" alt=""
+        /></a>
+        <p class="ms-5">Guardian</p>
+      </div>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('crusader')" href=""
+          ><img src="../assets/crusader.png" alt=""
+        /></a>
+        <p class="ms-5">Crusader</p>
+      </div>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('archon')" href=""
+          ><img src="../assets/archon.png" alt=""
+        /></a>
+        <p class="ms-5">Archon</p>
+      </div>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('legend')" href=""
+          ><img src="../assets/legend.png" alt=""
+        /></a>
+        <p class="ms-5">Legend</p>
+      </div>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('ancient')" href=""
+          ><img src="../assets/ancient.png" alt=""
+        /></a>
+        <p class="ms-5">Ancient</p>
+      </div>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('divine')" href=""
+          ><img src="../assets/divine.png" alt=""
+        /></a>
+        <p class="ms-5">Divine</p>
+      </div>
+      <div class="d-flex flex-column">
+        <a @click.prevent="updateRank('immortal')" href=""
+          ><img src="../assets/immortal.png" alt=""
+        /></a>
+        <p class="ms-5">Immortal</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "Profile",
+  methods: {
+    addRole(num) {
+      this.$store
+        .dispatch("addRole", num)
+        .then((data) => {
+          console.log(data);
+          Swal.fire({
+            icon: "success",
+            title: "Role added successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message,
+          });
+        });
+    },
+    updateRank(rank) {
+      this.$store
+        .dispatch("updateRank", rank)
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Rank has been updated successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message,
+          });
+        });
+    },
+  },
 };
 </script>
 

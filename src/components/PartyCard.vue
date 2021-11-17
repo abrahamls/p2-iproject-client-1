@@ -16,8 +16,6 @@
     />
     <div class="card-body">
       <h5 class="card-title">{{ party.name }}</h5>
-      <label for="">role: </label>
-      <!-- <p v-for="">- support</p> -->
     </div>
     <ul class="list-group list-group-flush">
       <p>members:</p>
@@ -30,12 +28,15 @@
       </li>
     </ul>
     <div class="card-body">
-      <a href="#" class="card-link">request join</a>
+      <a @click.prevent="joinParty" href="" class="card-link"
+        >request to join party</a
+      >
     </div>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "PartyCard",
   data() {
@@ -44,6 +45,29 @@ export default {
     };
   },
   props: ["party"],
+  methods: {
+    joinParty() {
+      this.$store
+        .dispatch("requestParty", this.party.id)
+        .then((data) => {
+          console.log(data);
+          Swal.fire({
+            icon: "success",
+            title:
+              "Your request has been made, lets wait until party leader approve your request",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message,
+          });
+        });
+    },
+  },
   created() {
     if (this.party.mode === "chill") {
       this.isChill = true;
