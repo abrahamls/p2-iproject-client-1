@@ -16,8 +16,6 @@
     />
     <div class="card-body">
       <h5 class="card-title">{{ party.name }}</h5>
-      <label for="">role: </label>
-      <!-- <p v-for="">- support</p> -->
     </div>
     <ul class="list-group list-group-flush">
       <p>members:</p>
