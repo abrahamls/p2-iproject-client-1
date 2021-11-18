@@ -68,6 +68,7 @@ export default {
           this.$router.push({ name: "Lobby" });
         })
         .catch((err) => {
+          console.log(err.response.data.message);
           Swal.fire({
             icon: "error",
             title: "Oops...",
