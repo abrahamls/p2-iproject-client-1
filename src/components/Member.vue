@@ -67,4 +67,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.list-group-item {
+  color: #fbfbfb;
+  background-color: rgba(139, 138, 169, 0.3);
+}
+</style>

@@ -246,6 +246,23 @@ export default new Vuex.Store({
           });
       });
     },
+    fecthPartyMembers(_, partyId) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/party/partymembers/${partyId}`,
+          method: "get",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
   },
   modules: {},
 });

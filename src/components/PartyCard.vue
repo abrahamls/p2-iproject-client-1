@@ -17,16 +17,16 @@
     <div class="card-body">
       <h5 class="card-title">{{ party.name }}</h5>
       <p>members: {{ membersTotal }}/5</p>
-      <p>schedule: {{ formatedDate }}</p>
+      <p>schedule: {{ party.schedule | moment("d MMMM YYYY, h:mm:ss a") }}</p>
+      <ul class="list-group list-group-flush">
+        <MemberList
+          v-for="member in party.members"
+          :key="member.id"
+          :member="member"
+        />
+      </ul>
     </div>
-    <ul class="list-group list-group-flush">
-      <MemberList
-        v-for="member in party.members"
-        :key="member.id"
-        :member="member"
-      />
-    </ul>
-    <div class="card-body">
+    <div class="card-footer">
       <a @click.prevent="joinParty" href="" class="card-link"
         >request to join party</a
       >
@@ -90,4 +90,17 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card {
+  background-color: rgba(139, 138, 169, 0.3);
+  /* background-color: #0f044c; */
+  color: #fbfbfb;
+}
+.card-list {
+  background-color: rgba(139, 138, 169, 0.3);
+}
+a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+</style>

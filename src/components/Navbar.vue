@@ -5,6 +5,7 @@
       <a @click.prevent="toMyParties" class="mx-4" href="">My Parties</a>
       <a @click.prevent="toProfile" class="mx-4" href="">My Profile</a>
       <a @click.prevent="toCreateParty" class="mx-4" href="">+ Create Party</a>
+      <a class="mx-4" href="">See Schedule</a>
     </div>
     <a href="" @click.prevent="logout" class="nav-item">logout</a>
   </nav>

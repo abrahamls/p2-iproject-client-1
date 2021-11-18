@@ -1,6 +1,7 @@
 <template>
   <div id="home-page">
     <Navbar />
+    <hr />
     <router-view></router-view>
   </div>
 </template>
@@ -36,6 +37,9 @@ export default {
 };
 </script>
 <style scoped>
+hr {
+  color: white;
+}
 #home-page {
   display: flex;
   min-height: 100vh;
