@@ -89,6 +89,7 @@
         <p class="ms-5">Immortal</p>
       </div>
     </div>
+    <div class="container-fluid">My Profile</div>
   </div>
 </template>
 

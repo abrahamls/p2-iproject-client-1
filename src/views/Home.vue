@@ -2,19 +2,16 @@
   <div id="home-page">
     <Navbar />
     <router-view></router-view>
-    <HFooter class="fixed-bottom" />
   </div>
 </template>
 
 <script>
-import HFooter from "vue-hacktiv8-footer";
 import Navbar from "../components/Navbar.vue";
 import Swal from "sweetalert2";
 
 export default {
   name: "Home",
   components: {
-    HFooter,
     Navbar,
   },
   computed: {

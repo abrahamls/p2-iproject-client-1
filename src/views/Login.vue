@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "Login",
   data() {
@@ -57,11 +58,21 @@ export default {
       this.$store
         .dispatch("login", payload)
         .then(({ access_token }) => {
+          Swal.fire({
+            icon: "success",
+            title: "login successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           localStorage.setItem("access_token", access_token);
-          this.$router.push({ name: "Home" });
+          this.$router.push({ name: "Lobby" });
         })
         .catch((err) => {
-          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message,
+          });
         });
     },
     toRegistration() {
