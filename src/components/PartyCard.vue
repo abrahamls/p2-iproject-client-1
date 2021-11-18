@@ -16,16 +16,15 @@
     />
     <div class="card-body">
       <h5 class="card-title">{{ party.name }}</h5>
+      <p>members: {{ membersTotal }}/5</p>
+      <p>schedule: {{ formatedDate }}</p>
     </div>
     <ul class="list-group list-group-flush">
-      <p>members:</p>
-      <li
+      <MemberList
         v-for="member in party.members"
         :key="member.id"
-        class="list-group-item"
-      >
-        {{ member.name }}
-      </li>
+        :member="member"
+      />
     </ul>
     <div class="card-body">
       <a @click.prevent="joinParty" href="" class="card-link"
@@ -37,6 +36,8 @@
 
 <script>
 import Swal from "sweetalert2";
+import moment from "moment";
+import MemberList from "./Member.vue";
 export default {
   name: "PartyCard",
   data() {
@@ -44,7 +45,18 @@ export default {
       isChill: false,
     };
   },
+  components: {
+    MemberList,
+  },
   props: ["party"],
+  computed: {
+    membersTotal() {
+      return this.party.members.length;
+    },
+    formatedDate() {
+      return moment(String(this.party.schedule)).format("YYYY-MM-DD");
+    },
+  },
   methods: {
     joinParty() {
       this.$store
@@ -78,4 +90,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>
