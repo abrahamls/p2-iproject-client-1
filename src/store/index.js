@@ -102,7 +102,7 @@ export default new Vuex.Store({
     addRole(_, id) {
       return new Promise((resolve, reject) => {
         axios({
-          url: "/player",
+          url: "/player/role",
           method: "post",
           data: {
             RoleId: id,
@@ -123,7 +123,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           url: "/player/rank",
-          method: "put",
+          method: "patch",
           headers: {
             access_token: localStorage.access_token,
           },
@@ -192,24 +192,24 @@ export default new Vuex.Store({
           });
       });
     },
-    fetchPendingParty(context) {
-      return new Promise((resolve, reject) => {
-        axios({
-          url: "/party/pendingparties",
-          method: "get",
-          headers: {
-            access_token: localStorage.access_token,
-          },
-        })
-          .then(({ data }) => {
-            context.commit("SET_PENDING_PARTIES", data);
-            resolve();
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
+    // fetchPendingParty(context) {
+    //   return new Promise((resolve, reject) => {
+    //     axios({
+    //       url: "/party/pendingparties",
+    //       method: "get",
+    //       headers: {
+    //         access_token: localStorage.access_token,
+    //       },
+    //     })
+    //       .then(({ data }) => {
+    //         context.commit("SET_PENDING_PARTIES", data);
+    //         resolve();
+    //       })
+    //       .catch((err) => {
+    //         reject(err);
+    //       });
+    //   });
+    // },
     fetchPendingMembers(_, partyId) {
       return new Promise((resolve, reject) => {
         axios({

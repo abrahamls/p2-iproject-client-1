@@ -36,9 +36,9 @@ export default {
     memberParties() {
       return this.$store.state.memberParties;
     },
-    pendingParties() {
-      return this.$store.state.pendingParties;
-    },
+    // pendingParties() {
+    //   return this.$store.state.pendingParties;
+    // },
   },
   created() {
     this.$store
@@ -57,14 +57,14 @@ export default {
       .catch((err) => {
         console.log(err.response.data.message);
       });
-    this.$store
-      .dispatch("fetchPendingParty")
-      .then(() => {
-        console.log("fetch pending party success");
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-      });
+    // this.$store
+    //   .dispatch("fetchPendingParty")
+    //   .then(() => {
+    //     console.log("fetch pending party success");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response.data.message);
+    //   });
   },
 };
 </script>
