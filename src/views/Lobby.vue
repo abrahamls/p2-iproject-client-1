@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-evenly card-container">
+  <div class="d-flex justify-content-evenly card-container flex-wrap">
     <PartyCard v-for="party in parties" :key="party.id" :party="party" />
   </div>
 </template>

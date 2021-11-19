@@ -41,6 +41,18 @@
 </template>
 
 <script>
+// Client ID and API key from the Developer Console
+const CLIENT_ID =
+  "110800290100-b7mvrvl086knl4b99qh65lqq6i2qj81n.apps.googleusercontent.com";
+const API_KEY = "AIzaSyCNFOCJMOlSogxHsvCqK2eGyqtQh0kpAac";
+// Array of API discovery doc URLs for APIs used by the quickstart
+const DISCOVERY_DOCS = [
+  "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+];
+// Authorization scopes required by the API; multiple scopes can be
+// included, separated by spaces.
+const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+import VueGoogleCalendar from "vue-google-calendar/src/vue-google-calendar";
 import Swal from "sweetalert2";
 export default {
   name: "PartyForm",
@@ -53,14 +65,6 @@ export default {
   },
   methods: {
     createParty() {
-      // const gapi = window.gapi;
-      // const CLIENT_ID =
-      //   "110800290100-b7mvrvl086knl4b99qh65lqq6i2qj81n.apps.googleusercontent.com";
-      // const API_KEY = "AIzaSyCNFOCJMOlSogxHsvCqK2eGyqtQh0kpAac";
-      // const DISCOVERY_DOCS = [
-      //   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
-      // ];
-      // const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
       const payload = {
         name: this.name,
         mode: this.mode,
@@ -80,17 +84,6 @@ export default {
         })
         .then(() => {
           console.log("fetch parties after create party success");
-          // gapi.load("client:auth2", () => {
-          //   console.log("loaded client");
-          //   gapi.client.init({
-          //     apiKey: API_KEY,
-          //     clientId: CLIENT_ID,
-          //     discoveryDocs: DISCOVERY_DOCS,
-          //     scope: SCOPES,
-          //   });
-          //   gapi.client.load("calendar", "v3", () => console.log("bam!"));
-          //   gapi.auth.getAuthInstance().signIn();
-          // });
         })
         .catch((err) => {
           console.log(err.response.data.message);
