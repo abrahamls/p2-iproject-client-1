@@ -8,6 +8,9 @@ export default new Vuex.Store({
   state: {
     isLogged: false,
     parties: [],
+    leadParties: [],
+    memberParties: [],
+    pendingParties: [],
   },
   mutations: {
     SET_IS_LOGGED(state, payload) {
@@ -15,6 +18,15 @@ export default new Vuex.Store({
     },
     SET_PARTIES(state, payload) {
       state.parties = payload;
+    },
+    SET_LEAD_PARTIES(state, payload) {
+      state.leadParties = payload;
+    },
+    SET_MEMBER_PARTIES(state, payload) {
+      state.memberParties = payload;
+    },
+    SET_PENDING_PARTIES(state, payload) {
+      state.pendingParties = payload;
     },
   },
   actions: {
@@ -90,7 +102,7 @@ export default new Vuex.Store({
     addRole(_, id) {
       return new Promise((resolve, reject) => {
         axios({
-          url: "/player",
+          url: "/player/role",
           method: "post",
           data: {
             RoleId: id,
@@ -111,7 +123,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           url: "/player/rank",
-          method: "put",
+          method: "patch",
           headers: {
             access_token: localStorage.access_token,
           },
@@ -132,6 +144,113 @@ export default new Vuex.Store({
         axios({
           url: `/party/${id}`,
           method: "post",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    fetchLeadParty(context) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: "/party/leadparties",
+          method: "get",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            context.commit("SET_LEAD_PARTIES", data);
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    fetchMemberParty(context) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: "/party/memberparties",
+          method: "GET",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            context.commit("SET_MEMBER_PARTIES", data);
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    // fetchPendingParty(context) {
+    //   return new Promise((resolve, reject) => {
+    //     axios({
+    //       url: "/party/pendingparties",
+    //       method: "get",
+    //       headers: {
+    //         access_token: localStorage.access_token,
+    //       },
+    //     })
+    //       .then(({ data }) => {
+    //         context.commit("SET_PENDING_PARTIES", data);
+    //         resolve();
+    //       })
+    //       .catch((err) => {
+    //         reject(err);
+    //       });
+    //   });
+    // },
+    fetchPendingMembers(_, partyId) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/party/pendingmembers/${partyId}`,
+          method: "get",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(({ data }) => {
+            resolve(data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    acceptMember(_, payload) {
+      return new Promise((resolve, reject) => {
+        console.log(payload);
+        axios({
+          url: "/player/status",
+          method: "patch",
+          params: payload,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        })
+          .then(() => {
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+    fecthPartyMembers(_, partyId) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/party/partymembers/${partyId}`,
+          method: "get",
           headers: {
             access_token: localStorage.access_token,
           },

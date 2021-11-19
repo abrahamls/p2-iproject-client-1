@@ -26,7 +26,11 @@
           <label for="exampleFormControlInput1" class="form-label"
             >Schedule</label
           >
-          <input type="date" class="form-control" v-model="schedule" />
+          <input
+            type="datetime-local"
+            class="form-control"
+            v-model="schedule"
+          />
         </div>
       </div>
       <div class="d-grid gap-2 mt-5">
@@ -49,6 +53,14 @@ export default {
   },
   methods: {
     createParty() {
+      // const gapi = window.gapi;
+      // const CLIENT_ID =
+      //   "110800290100-b7mvrvl086knl4b99qh65lqq6i2qj81n.apps.googleusercontent.com";
+      // const API_KEY = "AIzaSyCNFOCJMOlSogxHsvCqK2eGyqtQh0kpAac";
+      // const DISCOVERY_DOCS = [
+      //   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+      // ];
+      // const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
       const payload = {
         name: this.name,
         mode: this.mode,
@@ -68,6 +80,17 @@ export default {
         })
         .then(() => {
           console.log("fetch parties after create party success");
+          // gapi.load("client:auth2", () => {
+          //   console.log("loaded client");
+          //   gapi.client.init({
+          //     apiKey: API_KEY,
+          //     clientId: CLIENT_ID,
+          //     discoveryDocs: DISCOVERY_DOCS,
+          //     scope: SCOPES,
+          //   });
+          //   gapi.client.load("calendar", "v3", () => console.log("bam!"));
+          //   gapi.auth.getAuthInstance().signIn();
+          // });
         })
         .catch((err) => {
           console.log(err.response.data.message);
